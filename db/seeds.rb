@@ -1,8 +1,8 @@
 require "faker"
 require "csv"
 
-# Product.destroy_all
-# Category.destroy_all
+Product.destroy_all
+Category.destroy_all
 
 # This method is used to perform the find or create operation based on the given category_name.
 def find_or_create_category(name)
