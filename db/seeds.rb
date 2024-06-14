@@ -1,6 +1,27 @@
 require "faker"
 require "csv"
 
+Product.destroy_all
+Category.destroy_all
+
+
+def find_or_create_category(name)
+  Category.find_or_create_by(category_name: name)
+end
+
+
+csv_file_path = Rails.root.join('db', 'products.csv')
+CSV.foreach(csv_file_path, headers: true) do |row|
+  category = find_or_create_category(row['category_name'])
+  Product.create(
+    title: row['title'],
+    description: row['description'],
+    price: row['price'],
+    stock_quantity: row['stock_quantity'],
+    category: category
+  )
+end
+
 # for testing purposes
 # Product.create(description: "A product without a title", price: 19.99, stock_quantity: 10) #  fail
 # Product.create(title: "Product without price", description: "A great product", stock_quantity: 10) #  fail
