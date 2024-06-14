@@ -1,10 +1,10 @@
 require "faker"
 require "csv"
 
-Product.destroy_all
-Category.destroy_all
+# Product.destroy_all
+# Category.destroy_all
 
-
+# This method is used to perform the find or create operation based on the given category_name.
 def find_or_create_category(name)
   Category.find_or_create_by(category_name: name)
 end
@@ -12,6 +12,7 @@ end
 
 csv_file_path = Rails.root.join('db', 'products.csv')
 CSV.foreach(csv_file_path, headers: true) do |row|
+  # using find_or_create_by
   category = find_or_create_category(row['category_name'])
   Product.create(
     title: row['title'],
